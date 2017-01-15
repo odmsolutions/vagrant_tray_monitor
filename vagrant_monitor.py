@@ -17,9 +17,10 @@ class MonitorWorker(QtCore.QThread):
     def __init__(self):
         QtCore.QThread.__init__(self)
         self.vagrant = vagrant_interface.VagrantInterface()
+        self.should_stop = False
 
     def run(self):
-        while(True):
+        while(not self.should_stop):
             running_count = self.vagrant.get_running_count()
             self.updateRunning.emit(running_count)
             self.msleep(500)
@@ -30,8 +31,9 @@ class MonitorUI(object):
         self.close = False
         self.numeric_icons = []
         self.app = None
-        self.vagrant = vagrant_interface.VagrantInterface()
-
+        self.tray_icon = None
+        self.worker = MonitorWorker()
+        
     def setup_pixmaps(self):
         # Create pixmaps
         self.original = QPixmap("logo_small.ico")
@@ -47,7 +49,6 @@ class MonitorUI(object):
             numeric_icons.append(numeric_copy)
         self.numeric_icons = numeric_icons
 
-
     def make_context_menu(self):
         menu = QtGui.QMenu()
         quit_button = menu.addAction("exit")
@@ -57,7 +58,6 @@ class MonitorUI(object):
     def update_tray(self, running_count):
         self.tray_icon.setToolTip("Running count %d" % running_count)
         self.tray_icon.setIcon(self.numeric_icons[running_count])
-
 
     def main(self):
         # Create the application object
@@ -72,12 +72,13 @@ class MonitorUI(object):
         self.tray_icon.setContextMenu(self.make_context_menu())
         self.tray_icon.setToolTip("Checking vagrant...")
 
-        self.worker = MonitorWorker()
         self.worker.updateRunning.connect(self.update_tray)
         self.worker.start()
 
         self.tray_icon.show()
         self.app.exec_()
+        self.worker.should_stop = True
+        self.worker.wait()
         self.tray_icon.hide()
     
 
