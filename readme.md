@@ -6,15 +6,29 @@ However, one issue (risk) when working on a number of projects throughout the da
 Having a simple monitor of this - to show how many are running means that a developer can keep an eye on it, and know if it's a 
 likely suspect if a machine is starting to get a bit slow.
 
-It requires pyside and has been tested on Windows.
+It requires pyside, Python 2.7 and has been tested on Windows.
+
+# Usage
+
+Clone this, ensure you have pyside installed (`pip install pyside` works on most systems).
+Then run "python vagrant_monitor.py"
 
 # TODO
 
 * Testing on Mac and Linux
-* Bundling into a windows exe as a release path.
-* Bundling into mac pkg.
-* Bundling into linux deb/rpm for desktop distributions.
+* Packaging and clean up (it's a bit messy right now)
+  * Bundling into a windows exe as a release path.
+  * Bundling into mac pkg.
+  * Bundling into linux deb/rpm for desktop distributions.
 * Offering a tooltip with a list of the named VM's.
-* Offering context menu stuff to interact/or simply pop up a terminal in the directory a VM is running in.
+* Offering context menu stuff to interact
+  * pop up a terminal in the directory a VM is running in.
+  * Stop (halt/suspend/destroy)
+  * Resume
+  * Suspend all
+  * Halt all
 * An about box.
 
+# Why python 2.7
+
+This is simply down to the PySide binaries being available for Windows here. I should probably ensure it would work if the dependancies are installed correctly.
