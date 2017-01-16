@@ -23,7 +23,7 @@ class MonitorWorker(QtCore.QThread):
         while(not self.should_stop):
             running_count = self.vagrant.get_running_count()
             self.updateRunning.emit(running_count)
-            self.msleep(500)
+            self.sleep(1)
 
 
 class MonitorUI(object):
@@ -41,9 +41,8 @@ class MonitorUI(object):
         for n in range(0, 9):
             numeric_copy = self.original.copy()
             p = QPainter(numeric_copy)
-            p.setPen(QPen(Qt.red))
-            p.drawLine(0, 0, 64, 64)
-            p.setFont(QFont("sans", 20, QFont.Bold))
+            p.setPen(QPen(Qt.white))
+            p.setFont(QFont("sans", 40, QFont.Bold))
             p.drawText(numeric_copy.rect(), Qt.AlignCenter, str(n))
             p.end()
             numeric_icons.append(numeric_copy)
