@@ -11,7 +11,7 @@ It requires pyside, Python 2.7 and has been tested on Windows.
 # Usage
 
 Clone this, ensure you have pyside installed (`pip install pyside` works on most systems).
-Then run "python vagrant_monitor.py"
+Then run `python vagrant_monitor.py`
 
 # TODO
 
