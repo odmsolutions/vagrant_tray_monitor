@@ -10,12 +10,24 @@ It requires pyside, Python 2.7 and has been tested on Windows.
 
 # Usage
 
+## Windows 
+
 Clone this, ensure you have pyside installed (`pip install pyside` works on most systems).
 Then run `python vagrant_monitor.py`
 
+## Linux Fedora/Redhat
+
+To install Pyside: `sudo dnf install python-pyside`
+
+Then git clone, and run `python vagrant_monitor.py`
+
+## Mac/OSX
+
+To be confirmed.
+
 # TODO
 
-* Testing on Mac and Linux
+* Testing on Mac
 * Packaging and clean up (it's a bit messy right now)
   * Bundling into a windows exe as a release path.
   * Bundling into mac pkg.
